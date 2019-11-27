@@ -37,7 +37,7 @@ spec:
           - name: UPDATETIME
             value: "{{ .Values.updatetime }}"
           name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "felixmagnus/kubeinvaders"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

@@ -371,27 +371,55 @@ function init(self)
 	end
 end
 
+
+speed = 4
+
 function update(self, dt)
 	timer.update(dt)
+
+	
+
+	for i,value in ipairs(current_pods) do
+		position_of_pod = go.get_position(value["id"])
+		
+		position_of_pod.x = position_of_pod.x - speed
+
+		if position_of_pod.x < 0 or position_of_pod.x > 640*2 then
+			speed = speed * -1
+			break
+		end 
+
+		go.set_position(position_of_pod, value["id"])
+	end
 end
+
+
 
 function on_input(self, action_id, action)
 	if action_id == hash("up") then
 		local p = go.get_position()
-		p.y = p.y + 4
-		go.set_position(p)
+		if p.y + 4 < 360*2 then
+			p.y = p.y + 4
+			go.set_position(p)
+		end
 	elseif action_id == hash("down") then
 		local p = go.get_position()
-		p.y = p.y - 4
-		go.set_position(p)
+		if p.y - 4 > 0 then
+			p.y = p.y - 4
+			go.set_position(p)
+		end
 	elseif action_id == hash("left") then
 		local p = go.get_position()
-		p.x = p.x - 4
-		go.set_position(p)
+		if p.x - 4 > 0 then
+			p.x = p.x - 4
+			go.set_position(p)
+		end
 	elseif action_id == hash("right") then
 		local p = go.get_position()
-		p.x = p.x + 4
-		go.set_position(p)	
+		if p.x + 4 < 640*2 then
+			p.x = p.x + 4
+			go.set_position(p)
+		end
 	elseif action_id == hash("infopod") then
 		print_pod_name()
 	elseif action_id == hash("help") then
